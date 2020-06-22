@@ -86,6 +86,7 @@ int main(){
                 }else if(Medium_btn.mosuein(start_window)){
                     if(!Changed_Medium_btn && !Changed_Hard_btn && !Changed_Easy_byn){
                         Medium_btn.setScale({1, 1});
+
                         Medium_btn_Texture.loadFromFile("meduim_btn_p.png");
                         Changed_Medium_btn = 1;
                     } else{
