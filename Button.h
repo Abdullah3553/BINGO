@@ -23,8 +23,8 @@ public:
         button.setTexture(texture);
 
         button.setSize({(float)texture->getSize().x,(float)texture->getSize().y});
-        btnHeight = texture->getSize().x;
-        btnWidth = texture->getSize().y;
+        btnHeight = texture->getSize().y;
+        btnWidth = texture->getSize().x;
     }
 
     // Pass font by reference:
