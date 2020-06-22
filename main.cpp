@@ -11,8 +11,8 @@ int main(){
     RenderWindow start_window(VideoMode(700,700),"Start Window",Style::Close);
     start_window.setPosition(Vector2i(0,0));
     Texture background_texture,start_btn_texture;
-    //background_texture.loadFromFile("full_window.jpg");// to test positions
-    background_texture.loadFromFile("background.jpg");
+    background_texture.loadFromFile("full_window.jpg");// to test positions
+    //background_texture.loadFromFile("background.jpg");
     start_btn_texture.loadFromFile("start_btn.png");
     RectangleShape background;
     background.setTexture(&background_texture);
