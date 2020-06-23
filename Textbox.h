@@ -17,7 +17,6 @@ public:
         textbox.setCharacterSize(size);
         textbox.setFillColor(color);
         isSelected = sel;
-
         // Check if the textbox is selected upon creation and display it accordingly:
         if(isSelected)
             textbox.setString("_");
@@ -102,7 +101,7 @@ public:
     }
 private:
     sf::Text textbox;
-    sf::RectangleShape rect;
+
     std::ostringstream text;
     bool isSelected = false;
     bool hasLimit = false;

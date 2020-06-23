@@ -66,7 +66,7 @@ void Show_Error_Window(Font &font){
 string nameEnter(Font &font,string player_name){//A function to take the user enter his/her name as an input
     /*--------text box data elements---------*/
     RenderWindow txtbox(VideoMode(400,100),"Enter the Name",Style::Close);
-    Textbox name(27,Color::White,true,false);
+    Textbox name(27,Color::White,true);
     Text t1;
     Vector2i center(350-200,VideoMode::getDesktopMode().height/2 - 50);
     Texture ok_tex,cancel_tex;
