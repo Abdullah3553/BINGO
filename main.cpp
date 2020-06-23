@@ -73,7 +73,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
     //-------Texture area---------//
     ok_tex.setSmooth(true);
     cancel_tex.setSmooth(true);
-    ok_tex.loadFromFile("ok_btn.png");
+    ok_tex.loadFromFile("Ok_btn.png");
     cancel_tex.loadFromFile("cancel_btn.png");
     //-------Texture area---------//
 
