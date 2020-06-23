@@ -15,7 +15,7 @@ void Show_Error_Window(Font &font){
     text.setPosition({45, 90});
     text.setStyle(sf::Text::Bold);
     text.setCharacterSize(20);
-    text.setFillColor(sf::Color::White);
+    text.setFillColor(sf::Color::Black);
     text.setString("Choose the difficulty first.");
     text.setFont(font);
     //------ End_OF_Text section ------//
@@ -25,7 +25,7 @@ void Show_Error_Window(Font &font){
     text2.setCharacterSize(25);
     text2.setStyle(sf::Text::Bold);
     text2.setFont(font);
-    text2.setFillColor(sf::Color::White);
+    text2.setFillColor(sf::Color::Black);
     text2.setString("Warning !!\n");
     //------- End_Of_Text2 section --------//
 
@@ -55,7 +55,7 @@ void Show_Error_Window(Font &font){
                 }
             }
         }
-        Error_Window.clear();
+        Error_Window.clear(Color(127,127,127));
         Error_Window.draw(text);
         Error_Window.draw(text2);
         Ok_btn.drawTo(Error_Window);
@@ -259,6 +259,7 @@ int main(){
     if(Changed_Easy_byn)difficulty=1;
     else if(Changed_Medium_btn)difficulty=2;
     else difficulty =3;
+    cout<<"ENDED"<<endl;
     /*--------select difficulty---------*/
 //RenderWindow mainwindow(VideoMode(800, 700), "PENGO", Style::Close);
     //mainwindow.close();
