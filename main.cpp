@@ -6,6 +6,17 @@
 using namespace std;
 using namespace sf;
 
+void Show_Error_Window(){
+    RenderWindow Error_Window(VideoMode(200, 200), "Warning!!", Style::Close);
+    Error_Window.setPosition(Vector2i(150, 100));
+    Error_Window.setSize(sf::Vector2u(100, 100));
+    Error_Window.setTitle("Warning!!");
+    
+    sf::Font font;
+    Text text;
+    font.loadFromFile("ARLRDBD.TTF");
+
+}
 int main(){
     //-------- start window data -------//
     RenderWindow start_window(VideoMode(700,700),"Start Window",Style::Close);
