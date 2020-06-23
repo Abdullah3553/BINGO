@@ -3,7 +3,25 @@
 
 CMakeFiles/TEMP_SFML.dir/main.cpp.o
  /home/ahmed/CLionProjects/BINGO/Button.h
+ /home/ahmed/CLionProjects/BINGO/Textbox.h
  /home/ahmed/CLionProjects/BINGO/main.cpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/AlResource.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/Export.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/InputSoundFile.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/Listener.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/Music.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/OutputSoundFile.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/Sound.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundBuffer.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundBufferRecorder.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundFileFactory.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundFileFactory.inl
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundFileReader.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundFileWriter.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundRecorder.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundSource.hpp
+ /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Audio/SoundStream.hpp
  /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Config.hpp
  /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Graphics.hpp
  /home/ahmed/Hola/SFML-2.5.1-Compiled/include/SFML/Graphics/BlendMode.hpp
