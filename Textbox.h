@@ -93,12 +93,7 @@ public:
     void setCharacterSize(unsigned int size){
         textbox.setCharacterSize(size);
     }
-    void Background(bool tof){
-        if(tof){
-            rect.setSize(sf::Vector2f(textbox.getGlobalBounds().width,textbox.getGlobalBounds().height));
-            rect.setFillColor(sf::Color::Green);
-        }
-    }
+
 private:
     sf::Text textbox;
 

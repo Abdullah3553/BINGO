@@ -7,7 +7,7 @@ using namespace std;
 using namespace sf;
 
 void Show_Error_Window(Font &font){
-    RenderWindow Error_Window(VideoMode(350, 200), "Warning!!", Style::Close);
+    RenderWindow Error_Window(VideoMode(350, 200), "Warning!!", Style::None);
     Error_Window.setPosition(Vector2i(150, 100));
 
     Text text, text2;
@@ -65,7 +65,7 @@ void Show_Error_Window(Font &font){
 
 string nameEnter(Font &font,string player_name){//A function to take the user enter his/her name as an input
     /*--------text box data elements---------*/
-    RenderWindow txtbox(VideoMode(400,100),"Enter the Name",Style::Close);
+    RenderWindow txtbox(VideoMode(400,100),"Enter the Name",Style::None);
     Textbox name(27,Color::White,true);
     Text t1;
     Vector2i center(350-200,VideoMode::getDesktopMode().height/2 - 50);
@@ -98,11 +98,21 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
                 name.typedOn(e);
             else if(e.type==Event::MouseButtonPressed)
             {
-                cout<<Mouse::getPosition(txtbox).x<<" "<<Mouse::getPosition(txtbox).y<<endl;
+              //  cout<<Mouse::getPosition(txtbox).x<<" "<<Mouse::getPosition(txtbox).y<<endl;
                 if(ok.mosuein(txtbox)){
+                    ok.setScale({0.9, 0.9});
+                }
+                else if(cancel.mosuein(txtbox)){
+                    cancel.setScale({0.9, 0.9});
+                }
+            }
+            else if (e.type==Event::MouseButtonReleased){
+                if(ok.mosuein(txtbox)){
+                    ok.setScale({1, 1});
                     txtbox.close();
                 }
                 else if(cancel.mosuein(txtbox)){
+                    cancel.setScale({1, 1});
                     return player_name;
                 }
             }
@@ -190,7 +200,7 @@ int main(){
                 case Event::Closed:
                     start_window.close();return 0;break;
                 case Event::MouseButtonPressed://to know the positions on the screen
-                    cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
+                  //  cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
                     if(start_btn.mosuein(start_window))
                         start_btn.setScale({0.9,0.9});
 
@@ -259,10 +269,20 @@ int main(){
     if(Changed_Easy_byn)difficulty=1;
     else if(Changed_Medium_btn)difficulty=2;
     else difficulty =3;
-    cout<<"ENDED"<<endl;
+    //cout<<"ENDED"<<endl;//for testing
     /*--------select difficulty---------*/
-//RenderWindow mainwindow(VideoMode(800, 700), "PENGO", Style::Close);
-    //mainwindow.close();
+
+    /*-----------Ahmed Section :)-----------*/
+
+
+
+    /*-----------Ahmed Section :)-----------*/
+
+    /*----------Abdullah Section :)----------*/
+
+
+
+    /*----------Abdullah Section :)----------*/
 
     return 0;
 }
