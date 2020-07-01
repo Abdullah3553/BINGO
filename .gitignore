@@ -1,6 +1,6 @@
 CMakeLists.txt
 .idea
 CMakeCache.txt
-BINGO.cbp
+
 BINGO.exe
-Makefile
+
