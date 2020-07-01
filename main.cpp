@@ -129,7 +129,12 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
 
 void GameWindow(){
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
+    GameWindow.setPosition(Vector2i(0, 0));
+    Texture GameWindow_Back_Gound;
+    GameWindow_Back_Gound.loadFromFile("")
+    //
 
+    //
 }
 int main(){
     //------------Global Data-----------//
