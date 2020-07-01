@@ -72,18 +72,25 @@ int GameWindow(){
     RectangleShape Main_window_Back_Ground;
     Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
     Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
-    vector< vector<Button> > v ;
-    int xPos = 37, yPos = 196;
+    Font font;
+    font.loadFromFile("ARLRDBD.TTF");
+    vector< vector<Button> > v;
+    vector<Button> temp;
+    int xPos = 35, yPos = 196;
     for(int i = 0 ; i < 5 ; ++i){
         int xTemp = xPos;
+        temp.clear();
         for(int j = 0; j < 5 ; ++j) {
             string s = to_string(j+i+1);
-            v[i].push_back(Button(s, Vector2f(93, 93), 12, Color::Red, Color::Black));
+            temp.push_back(Button(s, Vector2f(105, 105), 12, Color::Red, Color::Black));
+        }
+        v.push_back(temp);
+        for(int k = 0; k < 5; ++k){
+            v[i][k].setPosition(Vector2f(xTemp, yPos));
+            v[i][k].setFont(font);
             xTemp += 93;
-            v[i][j].setPosition(Vector2f(xTemp, yPos));
         }
         yPos += 93;
-        xPos += 93;
     }
     while(GameWindow.isOpen()){
         Event event;
