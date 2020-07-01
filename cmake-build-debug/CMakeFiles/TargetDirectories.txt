@@ -1,3 +1,0 @@
-C:/Users/lenovo/Documents/Clion Projects/BINGO_lod3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/lenovo/Documents/Clion Projects/BINGO_lod3/cmake-build-debug/CMakeFiles/BINGO_lod3.dir
-C:/Users/lenovo/Documents/Clion Projects/BINGO_lod3/cmake-build-debug/CMakeFiles/edit_cache.dir
