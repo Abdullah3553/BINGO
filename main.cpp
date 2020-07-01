@@ -63,21 +63,44 @@ void Show_Error_Window(Font &font){
     }
 }
 
-void GameWindow(){
+int GameWindow(){
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
     GameWindow.setPosition(Vector2i(0, 0));
     Texture GameWindow_Back_Gound;
-    GameWindow_Back_Gound.loadFromFile("main_page\main_page.jpg");
+    GameWindow_Back_Gound.loadFromFile("main_page/main_page.jpg");
 
     RectangleShape Main_window_Back_Ground;
     Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
     Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
+    vector< vector<Button> > v ;
+    int xPos = 37, yPos = 196;
+    for(int i = 0 ; i < 5 ; ++i){
+        int xTemp = xPos;
+        for(int j = 0; j < 5 ; ++j) {
+            string s = to_string(j+i+1);
+            v[i].push_back(Button(s, Vector2f(93, 93), 12, Color::Red, Color::Black));
+            xTemp += 93;
+            v[i][j].setPosition(Vector2f(xTemp, yPos));
+        }
+        yPos += 93;
+        xPos += 93;
+    }
     while(GameWindow.isOpen()){
         Event event;
         while(GameWindow.pollEvent(event)){
 
+            if(event.type == Event::Closed) {
+                GameWindow.close();
+                return 0;
+            }else if(event.type == sf::Event::MouseButtonPressed){
+                sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);
+                cout << localPosition.x << " " << localPosition.y << endl;
+            }
         }
         GameWindow.draw(Main_window_Back_Ground);
+        for(int i = 0 ; i < 5 ; ++i)
+            for(auto it : v[i])
+                it.drawTo(GameWindow);
         GameWindow.display();
     }
     //
