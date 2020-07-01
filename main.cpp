@@ -63,6 +63,28 @@ void Show_Error_Window(Font &font){
     }
 }
 
+void GameWindow(){
+    RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
+    GameWindow.setPosition(Vector2i(0, 0));
+    Texture GameWindow_Back_Gound;
+    GameWindow_Back_Gound.loadFromFile("main_page\main_page.jpg");
+
+    RectangleShape Main_window_Back_Ground;
+    Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
+    Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
+    while(GameWindow.isOpen()){
+        Event event;
+        while(GameWindow.pollEvent(event)){
+
+        }
+        GameWindow.draw(Main_window_Back_Ground);
+        GameWindow.display();
+    }
+    //
+
+    //
+}
+
 string nameEnter(Font &font,string player_name){//A function to take the user enter his/her name as an input
     /*--------text box data elements---------*/
     RenderWindow txtbox(VideoMode(400,100),"Enter the Name",Style::None);
@@ -109,6 +131,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
             else if (e.type==Event::MouseButtonReleased){
                 if(ok.mosuein(txtbox)){
                     ok.setScale({1, 1});
+                    GameWindow();
                     txtbox.close();
                 }
                 else if(cancel.mosuein(txtbox)){
@@ -127,15 +150,6 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
     return player_name;
 }
 
-void GameWindow(){
-    RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
-    GameWindow.setPosition(Vector2i(0, 0));
-    Texture GameWindow_Back_Gound;
-    GameWindow_Back_Gound.loadFromFile("")
-    //
-
-    //
-}
 int main(){
     //------------Global Data-----------//
     string player_name;
