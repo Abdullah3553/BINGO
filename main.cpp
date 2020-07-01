@@ -127,6 +127,10 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
     return player_name;
 }
 
+void GameWindow(){
+    RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
+
+}
 int main(){
     //------------Global Data-----------//
     string player_name;
