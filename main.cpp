@@ -66,23 +66,27 @@ void Show_Error_Window(Font &font){
 int GameWindow(){
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
     GameWindow.setPosition(Vector2i(0, 0));
-    Texture GameWindow_Back_Gound;
+    Texture GameWindow_Back_Gound, Score_Stack;
     GameWindow_Back_Gound.loadFromFile("main_page/main_page.jpg");
+    Score_Stack.loadFromFile("main_page/stack_empty.PNG");
 
-    RectangleShape Main_window_Back_Ground;
+    RectangleShape Main_window_Back_Ground, Score_Stack_Rec;
+    Score_Stack_Rec.setTexture(&Score_Stack);
+    Score_Stack_Rec.setPosition(Vector2f(563, 492));
+
     Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
     Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
     Font font;
     font.loadFromFile("ARLRDBD.TTF");
     vector< vector<Button> > v;
     vector<Button> temp;
-    int xPos = 35, yPos = 196;
+    int xPos = 34, yPos = 196;
     for(int i = 0 ; i < 5 ; ++i){
         int xTemp = xPos;
         temp.clear();
         for(int j = 0; j < 5 ; ++j) {
             string s = to_string(j+i+1);
-            temp.push_back(Button(s, Vector2f(105, 105), 12, Color::Red, Color::Black));
+            temp.push_back(Button(s, Vector2f(110, 110), 20, Color::White, Color::Black));
         }
         v.push_back(temp);
         for(int k = 0; k < 5; ++k){
@@ -102,9 +106,18 @@ int GameWindow(){
             }else if(event.type == sf::Event::MouseButtonPressed){
                 sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);
                 cout << localPosition.x << " " << localPosition.y << endl;
+                for(int i = 0; i < 5; ++i){
+                    for(int j = 0; j < 5; ++j)
+                        if(v[i][j].mosuein(GameWindow)){
+                            v[i][j].setScale({0.9, 0.9});
+                            v[i][j].setBackColor(Color::Magenta);
+                        }
+                }
+
             }
         }
         GameWindow.draw(Main_window_Back_Ground);
+        GameWindow.draw(Score_Stack_Rec);
         for(int i = 0 ; i < 5 ; ++i)
             for(auto it : v[i])
                 it.drawTo(GameWindow);
