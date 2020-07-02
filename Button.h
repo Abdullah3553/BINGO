@@ -7,6 +7,7 @@ using namespace sf;
 
 class Button {
 public:
+    Button(){;}
     Button(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor) {
         button.setSize(buttonSize);
         button.setFillColor(bgColor);

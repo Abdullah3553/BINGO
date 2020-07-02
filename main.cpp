@@ -8,8 +8,9 @@ using namespace sf;
 
 void Show_Error_Window(Font &font){
     RenderWindow Error_Window(VideoMode(350, 200), "Warning!!", Style::None);
-    Error_Window.setPosition(Vector2i(150, 100));
 
+    Vector2i center(350-175,350 - 100);
+    Error_Window.setPosition(center);
     Text text, text2;
     //------ Text(Sentence) section --------//
     text.setPosition({45, 90});
@@ -63,7 +64,7 @@ void Show_Error_Window(Font &font){
     }
 }
 
-int GameWindow(){
+void GameWindow(string &player_name,int &difficulty){
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
     GameWindow.setPosition(Vector2i(0, 0));
     Texture GameWindow_Back_Gound, Score_Stack;
@@ -80,21 +81,21 @@ int GameWindow(){
     font.loadFromFile("ARLRDBD.TTF");
     vector< vector<Button> > v;
     vector<Button> temp;
-    int xPos = 34, yPos = 196;
+    int xPos = 40, yPos = 202;
     for(int i = 0 ; i < 5 ; ++i){
         int xTemp = xPos;
         temp.clear();
         for(int j = 0; j < 5 ; ++j) {
             string s = to_string(j+i+1);
-            temp.push_back(Button(s, Vector2f(110, 110), 20, Color::White, Color::Black));
+            temp.push_back(Button(s, Vector2f(89, 89), 20, Color::White, Color::Black));
         }
         v.push_back(temp);
         for(int k = 0; k < 5; ++k){
             v[i][k].setPosition(Vector2f(xTemp, yPos));
             v[i][k].setFont(font);
-            xTemp += 93;
+            xTemp += 92;
         }
-        yPos += 93;
+        yPos += 92;
     }
     while(GameWindow.isOpen()){
         Event event;
@@ -102,14 +103,13 @@ int GameWindow(){
 
             if(event.type == Event::Closed) {
                 GameWindow.close();
-                return 0;
+                return ;
             }else if(event.type == sf::Event::MouseButtonPressed){
                 sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);
                 cout << localPosition.x << " " << localPosition.y << endl;
                 for(int i = 0; i < 5; ++i){
                     for(int j = 0; j < 5; ++j)
                         if(v[i][j].mosuein(GameWindow)){
-                            v[i][j].setScale({0.9, 0.9});
                             v[i][j].setBackColor(Color::Magenta);
                         }
                 }
@@ -148,7 +148,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
     ok.setPosition({347, 75});
     cancel.setPosition({272,75});
     t1.setFont(font);
-    t1.setFillColor(Color::White);
+    t1.setFillColor(Color::Black);
     t1.setString("Enter Your Name :");
     t1.setCharacterSize(18);
     t1.setPosition({0,0});
@@ -174,7 +174,6 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
             else if (e.type==Event::MouseButtonReleased){
                 if(ok.mosuein(txtbox)){
                     ok.setScale({1, 1});
-                    GameWindow();
                     txtbox.close();
                 }
                 else if(cancel.mosuein(txtbox)){
@@ -193,12 +192,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
     return player_name;
 }
 
-int main(){
-    //------------Global Data-----------//
-    string player_name;
-    int difficulty;
-    //------------Global Data-----------//
-
+bool start_window_function(string &player_name,int &difficulty){
     //-------- start window data -------//
     RenderWindow start_window(VideoMode(700,700),"Start Window",Style::Close);
     start_window.setPosition(Vector2i(0,0));
@@ -264,9 +258,9 @@ int main(){
         while(start_window.pollEvent(ev))
             switch (ev.type) {//even handle switch case
                 case Event::Closed:
-                    start_window.close();return 0;break;
+                    start_window.close();return 0 ;break;
                 case Event::MouseButtonPressed://to know the positions on the screen
-                  //  cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
+                    //  cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
                     if(start_btn.mosuein(start_window))
                         start_btn.setScale({0.9,0.9});
 
@@ -337,18 +331,21 @@ int main(){
     else difficulty =3;
     //cout<<"ENDED"<<endl;//for testing
     /*--------select difficulty---------*/
+    return 1;
+}
 
-    /*-----------Ahmed Section :)-----------*/
+int main(){
+    //------------Global Data-----------//
+    string player_name;
+    int difficulty;
+    //------------Global Data-----------//
+    if(start_window_function(player_name,difficulty)){
+        GameWindow(player_name,difficulty);
+    }
 
 
 
-    /*-----------Ahmed Section :)-----------*/
 
-    /*----------Abdullah Section :)----------*/
-
-
-
-    /*----------Abdullah Section :)----------*/
 
     return 0;
 }
