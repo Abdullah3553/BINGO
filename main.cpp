@@ -65,22 +65,28 @@ void Show_Error_Window(Font &font){
 }
 
 void GameWindow(string &player_name,int &difficulty){
+
+    /*-----------data elements area--------*/
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
-    GameWindow.setPosition(Vector2i(0, 0));
     Texture GameWindow_Back_Gound, Score_Stack;
-    GameWindow_Back_Gound.loadFromFile("main_page/main_page.jpg");
-    Score_Stack.loadFromFile("main_page/stack_empty.PNG");
-
-    RectangleShape Main_window_Back_Ground, Score_Stack_Rec;
-    Score_Stack_Rec.setTexture(&Score_Stack);
-    Score_Stack_Rec.setPosition(Vector2f(563, 492));
-
-    Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
-    Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
     Font font;
-    font.loadFromFile("ARLRDBD.TTF");
     vector< vector<Button> > v;
     vector<Button> temp;
+    RectangleShape Main_window_Back_Ground, Score_Stack_Rec;
+    vector< vector<bool> >btns_click(5,vector<bool>(5,false));
+    /*-----------data elements area--------*/
+
+    //--------data elements settings-------//
+    GameWindow.setPosition(Vector2i(0, 0));
+    font.loadFromFile("ARLRDBD.TTF");
+    GameWindow_Back_Gound.loadFromFile("main_page/main_page.jpg");
+    Score_Stack.loadFromFile("main_page/stack_empty.PNG");
+    Score_Stack_Rec.setTexture(&Score_Stack);
+    Score_Stack_Rec.setPosition(Vector2f(563, 492));
+    Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
+    Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
+
+    /*-------setting the position of the buttons-------*/
     int xPos = 40, yPos = 202;
     for(int i = 0 ; i < 5 ; ++i){
         int xTemp = xPos;
@@ -97,7 +103,10 @@ void GameWindow(string &player_name,int &difficulty){
         }
         yPos += 92;
     }
-    while(GameWindow.isOpen()){
+    /*-------setting the position of the buttons-------*/
+    //--------data elements settings-------//
+
+    while(GameWindow.isOpen()){// the game window main loop
         Event event;
         while(GameWindow.pollEvent(event)){
 
@@ -105,12 +114,14 @@ void GameWindow(string &player_name,int &difficulty){
                 GameWindow.close();
                 return ;
             }else if(event.type == sf::Event::MouseButtonPressed){
-                sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);
-                cout << localPosition.x << " " << localPosition.y << endl;
+                //sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);//for testing
+               // cout << localPosition.x << " " << localPosition.y << endl;//for testing
                 for(int i = 0; i < 5; ++i){
                     for(int j = 0; j < 5; ++j)
-                        if(v[i][j].mosuein(GameWindow)){
+                        if(v[i][j].mosuein(GameWindow)&&!btns_click[i][j]){
                             v[i][j].setBackColor(Color::Magenta);
+                            btns_click[i][j]=1;
+                            cout<<"Clicked"<<endl;
                         }
                 }
 
