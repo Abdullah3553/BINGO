@@ -3,3 +3,4 @@ CMakeLists.txt
 CMakeCache.txt
 BINGO.exe
 CMakeFiles
+cmake_install.cmake
