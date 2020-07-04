@@ -66,7 +66,7 @@ void Show_Error_Window(Font &font){
 
 void GameWindow(string &player_name,int &difficulty){
 
-    /*-----------data elements area--------*/
+    /*---------data elements area--------*/
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
     Texture GameWindow_Back_Gound, Score_Stack;
     Font font;
