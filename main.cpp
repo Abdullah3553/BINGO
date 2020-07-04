@@ -74,6 +74,9 @@ void GameWindow(string &player_name,int &difficulty){
     vector<Button> temp;
     RectangleShape Main_window_Back_Ground, Score_Stack_Rec;
     vector< vector<bool> >btns_click(5,vector<bool>(5,false));
+    Text turn;
+    bool playerturn=1;
+    long long time = 4e8;
     /*-----------data elements area--------*/
 
     //--------data elements settings-------//
@@ -85,6 +88,10 @@ void GameWindow(string &player_name,int &difficulty){
     Score_Stack_Rec.setPosition(Vector2f(563, 492));
     Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
     Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
+    turn.setCharacterSize(20);
+    turn.setFont(font);
+    turn.setFillColor(Color::White);
+    turn.setPosition({480,38});
 
     /*-------setting the position of the buttons-------*/
     int xPos = 40, yPos = 202;
@@ -114,25 +121,35 @@ void GameWindow(string &player_name,int &difficulty){
                 GameWindow.close();
                 return ;
             }else if(event.type == sf::Event::MouseButtonPressed){
-                //sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);//for testing
-               // cout << localPosition.x << " " << localPosition.y << endl;//for testing
+                sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);//for testing
+               cout << localPosition.x << " " << localPosition.y << endl;//for testing
                 for(int i = 0; i < 5; ++i){
                     for(int j = 0; j < 5; ++j)
-                        if(v[i][j].mosuein(GameWindow)&&!btns_click[i][j]){
+                        if(v[i][j].mosuein(GameWindow)&&!btns_click[i][j]&&playerturn){
                             v[i][j].setBackColor(Color::Magenta);
                             btns_click[i][j]=1;
                             cout<<"Clicked"<<endl;
+                            playerturn=false;
                         }
                 }
 
             }
+        }
+        if(playerturn){
+            turn.setString(player_name+"'s Turn");
+        }else{
+            turn.setString("Opponent is playing...");
         }
         GameWindow.draw(Main_window_Back_Ground);
         GameWindow.draw(Score_Stack_Rec);
         for(int i = 0 ; i < 5 ; ++i)
             for(auto it : v[i])
                 it.drawTo(GameWindow);
+        GameWindow.draw(turn);
         GameWindow.display();
+        if(!playerturn) { for (int i = 0; i < time; i++);
+            for (long long i = 0; i < time; i++);
+        playerturn=true; }
     }
     //
 
