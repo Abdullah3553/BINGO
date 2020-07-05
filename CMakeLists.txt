@@ -16,5 +16,5 @@ if(SFML_FOUND)
     message(STATUS "SFML_VERSION: ${SFML_VERSION}")
 endif()
 
-add_executable(BINGO main.cpp Button.h Textbox.h)
+add_executable(BINGO main.cpp Button.h Textbox.h ComputerLevels.h)
 target_link_libraries (BINGO sfml-graphics sfml-window sfml-system)

@@ -1,9 +1,8 @@
 /*---------BINGO---------*/
 #include <SFML/Graphics.hpp>
-#include<iostream>
 #include"Button.h"
 #include "Textbox.h"
-using namespace std;
+#include"ComputerLevels.h"
 using namespace sf;
 
 void Show_Error_Window(Font &font){
@@ -16,7 +15,7 @@ void Show_Error_Window(Font &font){
     text.setPosition({45, 90});
     text.setStyle(sf::Text::Bold);
     text.setCharacterSize(20);
-    text.setFillColor(sf::Color::Black);
+    text.setFillColor(Color::Black);
     text.setString("Choose the difficulty first.");
     text.setFont(font);
     //------ End_OF_Text section ------//
@@ -66,7 +65,7 @@ void Show_Error_Window(Font &font){
 
 void GameWindow(string &player_name,int &difficulty){
 
-    /*---------data elements area--------*/
+    //---------data elements area--------//
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
     Texture GameWindow_Back_Gound, Score_Stack;
     Font font;
@@ -75,9 +74,10 @@ void GameWindow(string &player_name,int &difficulty){
     RectangleShape Main_window_Back_Ground, Score_Stack_Rec;
     vector< vector<bool> >btns_click(5,vector<bool>(5,false));
     Text turn;
-    bool playerturn=1;
+    bool playerturn=1,playerWins=0;
     long long time = 4e8;
-    /*-----------data elements area--------*/
+    int playerGrid[6][6]={},compGrid[6][6]={},compGridCopy[6][6]={},playerPoints=0,compPoints=0;
+    //-----------data elements area--------//
 
     //--------data elements settings-------//
     GameWindow.setPosition(Vector2i(0, 0));
@@ -85,13 +85,23 @@ void GameWindow(string &player_name,int &difficulty){
     GameWindow_Back_Gound.loadFromFile("main_page/main_page.jpg");
     Score_Stack.loadFromFile("main_page/stack_empty.PNG");
     Score_Stack_Rec.setTexture(&Score_Stack);
-    Score_Stack_Rec.setPosition(Vector2f(563, 492));
+    Score_Stack_Rec.setPosition(Vector2f(543, 462));
+    Score_Stack_Rec.setSize({155,198});
     Main_window_Back_Ground.setTexture(&GameWindow_Back_Gound);
     Main_window_Back_Ground.setSize(Vector2f(GameWindow_Back_Gound.getSize()));
-    turn.setCharacterSize(20);
+    turn.setCharacterSize(25);
     turn.setFont(font);
     turn.setFillColor(Color::White);
-    turn.setPosition({480,38});
+    turn.setPosition({409,35});
+
+    /*-------Grids settings-----------*/
+    filltheGrid(playerGrid);
+    filltheGrid(compGrid);
+    for(int i=0;i<5;i++)
+        for(int j=0;j<5;j++)
+            compGridCopy[i][j]=compGrid[i][j];
+
+    /*-------Grids settings-----------*/
 
     /*-------setting the position of the buttons-------*/
     int xPos = 40, yPos = 202;
@@ -99,7 +109,7 @@ void GameWindow(string &player_name,int &difficulty){
         int xTemp = xPos;
         temp.clear();
         for(int j = 0; j < 5 ; ++j) {
-            string s = to_string(j+i+1);
+            string s = to_string(playerGrid[i][j]);
             temp.push_back(Button(s, Vector2f(89, 89), 20, Color::White, Color::Black));
         }
         v.push_back(temp);
@@ -122,7 +132,7 @@ void GameWindow(string &player_name,int &difficulty){
                 return ;
             }else if(event.type == sf::Event::MouseButtonPressed){
                 sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);//for testing
-               cout << localPosition.x << " " << localPosition.y << endl;//for testing
+                cout << localPosition.x << " " << localPosition.y << endl;//for testing
                 for(int i = 0; i < 5; ++i){
                     for(int j = 0; j < 5; ++j)
                         if(v[i][j].mosuein(GameWindow)&&!btns_click[i][j]&&playerturn){
@@ -130,6 +140,40 @@ void GameWindow(string &player_name,int &difficulty){
                             btns_click[i][j]=1;
                             cout<<"Clicked"<<endl;
                             playerturn=false;
+
+                            playerGrid[i][j]=0;
+                            if(playerGrid[i][5]!=-1)
+                                playerGrid[i][5]++;
+                            if(playerGrid[5][j]!=-1)
+                                playerGrid[5][j]++;
+
+                            compGrid[i][j]=0;
+                            if(compGrid[i][5]!=-1)
+                                compGrid[i][5]++;
+                            if(compGrid[5][j]!=-1)
+                                compGrid[5][j]++;
+                            pointsCont(playerPoints,playerGrid);
+                            pointsCont(compPoints,compGrid);
+                            switch (playerPoints) {
+                                case 1:
+                                    Score_Stack.loadFromFile("main_page/stack_1.PNG");
+
+                                    break;
+                                case 2:
+                                    Score_Stack.loadFromFile("main_page/stack_2.PNG");
+                                    break;
+                                case 3:
+                                    Score_Stack.loadFromFile("main_page/stack_3.PNG");
+                                    break;
+                                case 4:
+                                    Score_Stack.loadFromFile("main_page/stack_4.PNG");
+                                    break;
+                                case 5:
+                                    Score_Stack.loadFromFile("main_page/stack_5_win.PNG");
+                                    playerWins=1;
+                                    break;
+                            }
+                            Score_Stack_Rec.setTexture(&Score_Stack);
                         }
                 }
 
@@ -139,6 +183,10 @@ void GameWindow(string &player_name,int &difficulty){
             turn.setString(player_name+"'s Turn");
         }else{
             turn.setString("Opponent is playing...");
+            if(difficulty==1)
+            {
+                PlayEasy(compGrid);
+            }
         }
         GameWindow.draw(Main_window_Back_Ground);
         GameWindow.draw(Score_Stack_Rec);
@@ -147,9 +195,9 @@ void GameWindow(string &player_name,int &difficulty){
                 it.drawTo(GameWindow);
         GameWindow.draw(turn);
         GameWindow.display();
-        if(!playerturn) { for (int i = 0; i < time; i++);
-            for (long long i = 0; i < time; i++);
-        playerturn=true; }
+        if(!playerturn) {
+            for (int i = 0; i < time; i++);
+            playerturn=true; }
     }
     //
 
@@ -191,7 +239,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
                 name.typedOn(e);
             else if(e.type==Event::MouseButtonPressed)
             {
-              //  cout<<Mouse::getPosition(txtbox).x<<" "<<Mouse::getPosition(txtbox).y<<endl;
+                //  cout<<Mouse::getPosition(txtbox).x<<" "<<Mouse::getPosition(txtbox).y<<endl;
                 if(ok.mosuein(txtbox)){
                     ok.setScale({0.9, 0.9});
                 }
