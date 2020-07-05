@@ -2,5 +2,6 @@ CMakeLists.txt
 .idea
 CMakeCache.txt
 BINGO.exe
+BINGO.cpb
 CMakeFiles
 cmake_install.cmake
