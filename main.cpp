@@ -63,20 +63,128 @@ void Show_Error_Window(Font &font){
     }
 }
 
-void GameWindow(string &player_name,int &difficulty){
+void Change_Difficulty(int &difficulty,Font &font){
+    //-------data elements area-------//
+    RenderWindow window(VideoMode(400,100),"",Style::None);
+    Text txt;
+        //-------Texture area-------//
+    Texture easy_tex,medium_tex,hard_tex;
+    easy_tex.loadFromFile("Change_Difficulty/easy.png");
+    medium_tex.loadFromFile("Change_Difficulty/medium.png");
+    hard_tex.loadFromFile("Change_Difficulty/hard.png");
+
+        //-------Texture area-------//
+    Button easy(&easy_tex),
+    medium(&medium_tex),
+    hard(&hard_tex);
+    //-------data elements area-------//
+
+    //-------data settings area-------//
+
+    //-------data settings area-------//
+    while(window.isOpen()){
+        Event event;
+        while(window.pollEvent(event)){
+            if(event.type==Event::MouseButtonPressed)
+                cout<<Mouse::getPosition(window).x<<" "<<Mouse::getPosition(window).y<<endl;
+        }
+    }
+
+}
+
+void Game_End(bool playerwin,Font &font){
+    //-------data elements area-------//
+    RenderWindow window(VideoMode(400,200),"",Style::None);
+    Vector2i center(350-200,350 - 100);
+    window.setPosition(center);
+    Text txt;
+        /*--------texture area--------*/
+    Texture exit_tex,again_tex,show_grid_tex;
+    exit_tex.loadFromFile("Game_End/Exit.png");
+    again_tex.loadFromFile("Game_End/play_again.png");
+    show_grid_tex.loadFromFile("Game_End/show_com_grid.png");
+        /*--------texture area--------*/
+    Button exit(&exit_tex),
+    again(&again_tex),
+    show_com_grid;
+    //-------data elements area-------//
+
+    //-------settings area-------//
+    exit.setPosition({308,144});
+    again.setPosition({18 ,144});
+    if(!playerwin){
+        show_com_grid.setPosition({150,126});
+        show_com_grid.setTexture(&show_grid_tex);
+    }
+    font.loadFromFile("ARLRDBD.TTF");
+    txt.setFont(font);
+    txt.setFillColor(Color::Black);
+    txt.setCharacterSize(36);
+    txt.setPosition({100,20});
+    if(playerwin){
+        txt.setString("Good Job :)\nYou Won !");
+    }
+    else{
+        txt.setString("Good Game :)\n You Lost !");
+    }
+    //-------settings area-------//
+
+
+    while(window.isOpen()){
+        Event event;
+
+        while(window.pollEvent(event)){
+            if(event.type==Event::MouseButtonPressed){
+                if(exit.mosuein(window)){
+                    exit.setScale({0.9,0.9});
+                }
+                else if(again.mosuein(window)){
+                    again.setScale({0.9,0.9});
+                }
+                else if(show_com_grid.mosuein(window)){
+                    show_com_grid.setScale({0.9,0.9});
+                }
+            }
+            if(event.type==Event::MouseButtonReleased){
+                cout<<Mouse::getPosition(window).x<<" "<<Mouse::getPosition(window).y<<endl;
+                if(exit.mosuein(window)){
+                    exit.setScale({1,1});
+                    window.close();
+                }
+                else if(again.mosuein(window)){
+                    again.setScale({1,1});
+                    cout<<"Play again\n";
+                }
+                else if(show_com_grid.mosuein(window)){
+                    show_com_grid.setScale({1,1});
+                    cout<<"Show Computer Grid\n";
+                }
+            }
+        }
+        window.clear(Color(127,127,127));
+        exit.drawTo(window);
+        again.drawTo(window);
+        if(!playerwin)
+            show_com_grid.drawTo(window);
+        window.draw(txt);
+        window.display();
+    }
+}
+
+void GameWindow(string &player_name,int &difficulty,Font &font){
 
     //---------data elements area--------//
     RenderWindow GameWindow(VideoMode(700, 700), "Let's Play !!", Style::Close);
     Texture GameWindow_Back_Gound, Score_Stack;
-    Font font;
     vector< vector<Button> > v;
     vector<Button> temp;
     RectangleShape Main_window_Back_Ground, Score_Stack_Rec;
     vector< vector<bool> >btns_click(5,vector<bool>(5,false));
     Text turn;
-    bool playerturn=1,playerWins=0;
+    bool playerturn=1,playerWins=0,compWins=0,drawbtn=0;
     long long time = 4e8;
     int playerGrid[6][6]={},compGrid[6][6]={},compGridCopy[6][6]={},playerPoints=0,compPoints=0;
+    pair<int,int>tmp;
     //-----------data elements area--------//
 
     //--------data elements settings-------//
@@ -97,6 +205,8 @@ void GameWindow(string &player_name,int &difficulty){
     /*-------Grids settings-----------*/
     filltheGrid(playerGrid);
     filltheGrid(compGrid);
+    PrinT(playerGrid);
+    PrinT(compGrid);
     for(int i=0;i<5;i++)
         for(int j=0;j<5;j++)
             compGridCopy[i][j]=compGrid[i][j];
@@ -131,14 +241,14 @@ void GameWindow(string &player_name,int &difficulty){
                 GameWindow.close();
                 return ;
             }else if(event.type == sf::Event::MouseButtonPressed){
-                sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);//for testing
-                cout << localPosition.x << " " << localPosition.y << endl;//for testing
+               // sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);//for testing
+               // cout << localPosition.x << " " << localPosition.y << endl;//for testing
                 for(int i = 0; i < 5; ++i){
                     for(int j = 0; j < 5; ++j)
                         if(v[i][j].mosuein(GameWindow)&&!btns_click[i][j]&&playerturn){
                             v[i][j].setBackColor(Color::Magenta);
                             btns_click[i][j]=1;
-                            cout<<"Clicked"<<endl;
+                           // cout<<"Clicked"<<endl;
                             playerturn=false;
 
                             playerGrid[i][j]=0;
@@ -147,13 +257,25 @@ void GameWindow(string &player_name,int &difficulty){
                             if(playerGrid[5][j]!=-1)
                                 playerGrid[5][j]++;
 
-                            compGrid[i][j]=0;
-                            if(compGrid[i][5]!=-1)
-                                compGrid[i][5]++;
-                            if(compGrid[5][j]!=-1)
-                                compGrid[5][j]++;
+                            for(int l=0;l<5;l++){
+                                bool ch=0;
+                                for(int k=0;k<5;k++){
+                                    if(compGrid[l][k]==playerGrid[i][j]){
+                                        compGrid[l][k]=0;
+                                        if(compGrid[l][5]!=-1)
+                                            compGrid[l][5]++;
+                                        if(compGrid[5][k]!=-1)
+                                            compGrid[5][k]++;
+                                        ch=1;
+                                        break;
+                                    }
+                                }
+                                if(ch)break;
+                            }
+
                             pointsCont(playerPoints,playerGrid);
                             pointsCont(compPoints,compGrid);
+                            if(compPoints==5&&!playerWins)compWins=1;
                             switch (playerPoints) {
                                 case 1:
                                     Score_Stack.loadFromFile("main_page/stack_1.PNG");
@@ -170,10 +292,18 @@ void GameWindow(string &player_name,int &difficulty){
                                     break;
                                 case 5:
                                     Score_Stack.loadFromFile("main_page/stack_5_win.PNG");
+                                    if(!compWins)
                                     playerWins=1;
                                     break;
                             }
                             Score_Stack_Rec.setTexture(&Score_Stack);
+
+                            cout<<"Player : \n";
+                            PrinT(playerGrid);
+                            cout<<endl<<"Computer : \n";
+                            PrinT(compGrid);
+                            cout<<endl;
+
                         }
                 }
 
@@ -185,19 +315,70 @@ void GameWindow(string &player_name,int &difficulty){
             turn.setString("Opponent is playing...");
             if(difficulty==1)
             {
-                PlayEasy(compGrid);
+               tmp = PlayEasy(compGrid);
             }
+            else if(difficulty==2)
+            {
+                tmp = PlayMedium(compGrid);
+            }
+            else {
+               tmp =  PlayHard(compGrid);
+            }
+
+            //cout<<tmp.first<<" "<<tmp.second<<endl;
+
+            compGrid[tmp.first][tmp.second]=0;
+            if( compGrid[tmp.first][5]!=-1)
+                compGrid[tmp.first][5]++;
+            if( compGrid[5][tmp.second]!=-1)
+                compGrid[5][tmp.second]++;
+
+            for(int l=0;l<5;l++){
+                bool ch=0;
+                for(int k=0;k<5;k++){
+                    if(compGrid[tmp.first][tmp.second]==playerGrid[l][k]){
+                        playerGrid[l][k]=0;
+                        if(playerGrid[l][5]!=-1)
+                            playerGrid[l][5]++;
+                        if(playerGrid[5][k]!=-1)
+                            playerGrid[5][k]++;
+                        ch=1;
+                        break;
+                    }
+                }
+                if(ch)break;
+            }
+            pointsCont(playerPoints,playerGrid);
+            pointsCont(compPoints,compGrid);
+            if(compPoints==5&&!playerWins)compWins=1;
+            if(playerPoints==5&&!compWins)playerWins=1;
+
+            cout<<"Player : \n";
+            PrinT(playerGrid);
+            cout<<endl<<"Computer : \n";
+            PrinT(compGrid);
+            cout<<endl;
+
         }
+
         GameWindow.draw(Main_window_Back_Ground);
         GameWindow.draw(Score_Stack_Rec);
         for(int i = 0 ; i < 5 ; ++i)
             for(auto it : v[i])
                 it.drawTo(GameWindow);
         GameWindow.draw(turn);
+        if(drawbtn){
+            drawbtn=0;
+            btns_click[tmp.first][tmp.second]=1;
+            v[tmp.first][tmp.second].setBackColor(Color::Magenta);
+        }
         GameWindow.display();
         if(!playerturn) {
             for (int i = 0; i < time; i++);
-            playerturn=true; }
+            playerturn=true;
+        drawbtn=1;
+        }
+
     }
     //
 
@@ -268,7 +449,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
     return player_name;
 }
 
-bool start_window_function(string &player_name,int &difficulty){
+bool start_window_function(string &player_name,int &difficulty,Font &font){
     //-------- start window data -------//
     RenderWindow start_window(VideoMode(700,700),"Start Window",Style::Close);
     start_window.setPosition(Vector2i(0,0));
@@ -281,7 +462,6 @@ bool start_window_function(string &player_name,int &difficulty){
     /*--------Data area------*/
     RectangleShape background;
     Button start_btn(&start_btn_texture);
-    Font font;
     bool isstart=false , error=false;
     /*--------Data area------*/
     //-------- start window data -------//
@@ -414,11 +594,13 @@ int main(){
     //------------Global Data-----------//
     string player_name;
     int difficulty;
+    Font font;
     //------------Global Data-----------//
-    if(start_window_function(player_name,difficulty)){
-        GameWindow(player_name,difficulty);
+    font.loadFromFile("ARLRDBD.TTF");
+    if(start_window_function(player_name,difficulty,font)){
+        GameWindow(player_name,difficulty,font);
     }
-
+    Game_End(0,font);
 
 
 

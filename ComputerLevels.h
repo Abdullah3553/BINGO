@@ -1,13 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-int  getRand(vector<int> v);
-pair <int, int> PlayEasy(int g[][6]);
-pair<int,int> PlayMedium(int g[][6]);
-pair<int,int> PlayHard(int g[][6]);
-void filltheGrid(int g[][6]);
-void PrinT(int g[][6]);
-void pointsCont(int &points,int grid[][6]);
-
 
 int  getRand(vector<int> v){
     random_device dev;
@@ -119,9 +111,34 @@ pair<int,int> PlayHard(int g[][6]){
 
 
 
-void filltheGrid(int g[][6]){
-    vector<int>v ;
+void filltheGrid(int g[][6]) {
+    vector<int> v;
     for (int i = 1; i <= 25; ++i) {
+        v.push_back(i);
+    }
+
+    for (int i = 0; i < 5; ++i) {
+        vector<int> v;
+        for (int i = 1; i <= 25; ++i) {
+            v.push_back(i);
+        }
+
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+                shuffle(v.begin(), v.end(), default_random_engine(seed));
+                g[i][j] = v.back();
+                v.pop_back();
+//            remove(v.begin(),v.end(),g[i][j]);
+//            v.pop_back();
+            }
+        }
+    }
+}
+
+void filltheGrid2(int g[][6]){
+    vector<int>v ;
+    for (int i = 25; i > 0; --i) {
         v.push_back(i);
     }
 
