@@ -64,7 +64,7 @@ public:
     }
 
     // Check if the mouse is within the bounds of the button:
-    bool mosuein(sf::RenderWindow &window){
+    bool ismousein(sf::RenderWindow &window){
         sf::FloatRect rect = button.getGlobalBounds();
         sf::Vector2f mouse =(sf::Vector2f) sf::Mouse::getPosition(window);
         return rect.contains(mouse);
