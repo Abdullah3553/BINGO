@@ -7,6 +7,7 @@ using namespace sf;
 
 class Button {
 public:
+    Button(){}
     Button(std::string btnText, sf::Vector2f buttonSize, int charSize, sf::Color bgColor, sf::Color textColor) {
         button.setSize(buttonSize);
         button.setFillColor(bgColor);
@@ -63,25 +64,16 @@ public:
     }
 
     // Check if the mouse is within the bounds of the button:
-    bool isMouseOver(sf::RenderWindow &window) {
-        int mouseX = sf::Mouse::getPosition(window).x;
-        int mouseY = sf::Mouse::getPosition(window).y;
-
-        int btnPosX = button.getPosition().x;
-        int btnPosY = button.getPosition().y;
-
-        int btnxPosWidth = button.getPosition().x + btnWidth;
-        int btnyPosHeight = button.getPosition().y + btnHeight;
-
-        if (mouseX < btnxPosWidth && mouseX > btnPosX && mouseY < btnyPosHeight && mouseY > btnPosY) {
-            return true;
-        }
-        return false;
-    }
     bool mosuein(sf::RenderWindow &window){
         sf::FloatRect rect = button.getGlobalBounds();
         sf::Vector2f mouse =(sf::Vector2f) sf::Mouse::getPosition(window);
         return rect.contains(mouse);
+    }
+    void setTexture(Texture *t){
+        button.setTexture(t);
+        button.setSize({(float)t->getSize().x,(float)t->getSize().y});
+        btnHeight = t->getSize().y;
+        btnWidth = t->getSize().x;
     }
 private:
     sf::RectangleShape button;
