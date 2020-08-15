@@ -1,31 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+
 int  getRand(vector<int> v){
-    random_device dev;
-    mt19937 rng(dev());//seed
-    uniform_int_distribution<> ran(0,v.size());
-    int  idx = ran(rng);
-    return v[idx];
+    int  idx = rand()%v.size();
+    vector<int>v2;
+    for (int i = 0; i < v.size(); ++i) {
+        v2.push_back(v[i]);
+    }
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(v2.begin(), v2.end(), default_random_engine(seed));
+    return v2.back();
 }
 
-//g => 0 empty cell , non zero
-pair <int, int> PlayEasy(int g[][6]){
+pair <int, int> PlayEasy(int g[6][6]){
     vector <pair<int, int>> v;
     int indx;
     for (int i=0; i<5; i++){
         for (int j=0; j<5; j++){
             if (g[i][j]) v.emplace_back(make_pair(i, j));
         }
-        random_device dev;
-        mt19937 rng(dev());
-        uniform_int_distribution<> ran(0,v.size());
-        indx = ran(rng);
     }
-    return v[indx];
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(v.begin(), v.end(), default_random_engine(seed));
+    return v.back();
 }
 
-pair<int,int> PlayMedium(int g[][6]){
+pair<int,int> PlayMedium(int g[6][6]){
     set<pair<int,int>> s ;
     for (int i = 0; i < 5 ; ++i) {
         int r=5;
@@ -71,9 +72,7 @@ pair<int,int> PlayMedium(int g[][6]){
     }
 }
 
-
-
-pair<int,int> PlayHard(int g[][6]){
+pair<int,int> PlayHard(int g[6][6]){
     set<pair<pair<int,int>,pair<int,int>>> s;// Rem col , Rem row , i , j
 
     for (int i = 0; i < 5; ++i) {
@@ -109,9 +108,7 @@ pair<int,int> PlayHard(int g[][6]){
     return points[bestRandomEver];
 }
 
-
-
-void filltheGrid(int g[][6]) {
+void filltheGrid(int g[6][6]) {
     vector<int> v;
     for (int i = 1; i <= 25; ++i) {
         v.push_back(i);
@@ -136,24 +133,7 @@ void filltheGrid(int g[][6]) {
     }
 }
 
-void filltheGrid2(int g[][6]){
-    vector<int>v ;
-    for (int i = 25; i > 0; --i) {
-        v.push_back(i);
-    }
-
-    for (int i = 0; i < 5; ++i) {
-        for (int j = 0; j < 5; ++j) {
-            unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-            shuffle(v.begin(),v.end(),default_random_engine(seed));
-            g[i][j]=v.back();
-            v.pop_back();
-//            remove(v.begin(),v.end(),g[i][j]);
-//            v.pop_back();
-        }
-    }
-}
-void PrinT(int g[][6]){
+void PrinT(int g[6][6]){
     for (int i = 0; i < 5; ++i) {
 
         for (int j = 0; j < 5; ++j) {
@@ -162,7 +142,8 @@ void PrinT(int g[][6]){
         cout << endl;
     }
 }//Printing the grid
-void pointsCont(int &points,int grid[][6]){
+
+void pointsCont(int &points,int grid[6][6]){
     for(int i=0;i<5;i++)
     {
         if(grid[i][5]==5) {

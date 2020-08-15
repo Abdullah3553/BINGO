@@ -252,8 +252,12 @@ bool GameWindow(string &player_name,int &difficulty,Font &font,bool &playerwin){
 
     /*-------Grids settings-----------*/
     filltheGrid(playerGrid);
+         for( int i=0;i<1e7;i++);//for randomized grids
     filltheGrid(compGrid);
     PrinT(playerGrid);
+
+    cout<<endl;
+
     PrinT(compGrid);
     for(int i=0;i<5;i++)
         for(int j=0;j<5;j++)
@@ -326,7 +330,6 @@ bool GameWindow(string &player_name,int &difficulty,Font &font,bool &playerwin){
                             switch (playerPoints) {
                                 case 1:
                                     Score_Stack.loadFromFile("main_page/stack_1.PNG");
-
                                     break;
                                 case 2:
                                     Score_Stack.loadFromFile("main_page/stack_2.PNG");
