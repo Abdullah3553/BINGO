@@ -18,7 +18,7 @@ pair <int, int> PlayEasy(int g[6][6]){
     int indx;
     for (int i=0; i<5; i++){
         for (int j=0; j<5; j++){
-            if (g[i][j]) v.emplace_back(make_pair(i, j));
+            if (g[i][j]) v.push_back(make_pair(i, j));
         }
     }
     unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
