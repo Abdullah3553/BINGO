@@ -209,6 +209,9 @@ bool Game_End(bool playerwin,Font &font,int &difficulty,int compGrid[6][6],int c
                     Texture grid_tex;
                     vector<vector<Button>>grid_txt;
                     vector<Button>tmp_btn;
+                    center.x = 350 - 257;
+                    center.y = 350-253;
+                    compGrid_window.setPosition(center);
                     int xPos = 28, yPos = 25;
                     for(int i=0;i<5;i++)
                     {
@@ -595,28 +598,30 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
     //-------- start window data -------//
     RenderWindow start_window(VideoMode(700,700),"Start Window",Style::Close);
     start_window.setPosition(Vector2i(0,0));
-    Texture background_texture,start_btn_texture;
-    // background_texture.loadFromFile("full_window.jpg");// to test positions
+    Texture background_texture,start_btn_texture,how_btn_tex;
+    //background_texture.loadFromFile("full_window.jpg");// to test positions
     background_texture.loadFromFile("background.jpg");
     start_btn_texture.loadFromFile("start_btn.png");
+    how_btn_tex.loadFromFile("how_to_play_btn.png");
     /*--------Texture area------*/
 
     /*--------Data area------*/
     RectangleShape background;
-    Button start_btn(&start_btn_texture);
+    Button start_btn(&start_btn_texture),how_btn(&how_btn_tex);
     bool isstart=false , error=false;
     /*--------Data area------*/
     //-------- start window data -------//
 
     /*-------- Setting up data elements -------*/
     start_window.setPosition(Vector2i(0,0));
-    //background_texture.loadFromFile("full_window.jpg");// to test positions
     background.setTexture(&background_texture);
     background.setPosition(0,0);
     background.setSize(Vector2f(background_texture.getSize()));
     start_btn.setPosition({240, 196});
+    how_btn.setPosition(Vector2f(332,597));
     font.loadFromFile("ARLRDBD.TTF");
-//    start_btn.setBackColor(Color(255,255,255,100));
+//    start_btn.setBackColor(Color(255,255,255,100)); // for testing
+//how_btn.setBackColor(Color(255,255,255,100)); // for testing
 
     //----------- Easy_btn section ------------//
     Texture Easy_btn_Texture;
@@ -658,7 +663,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
                 case Event::Closed:
                     start_window.close();return 0 ;break;
                 case Event::MouseButtonPressed://to know the positions on the screen
-                    //  cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
+                      cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
                     if(start_btn.ismousein(start_window))
                         start_btn.setScale({0.9,0.9});
 
@@ -673,6 +678,9 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
                     else if(Hard_btn.ismousein(start_window)){
                         if(!Changed_Easy_byn && !Changed_Medium_btn)
                             Hard_btn.setScale({0.9, 0.9});
+                    }
+                    else if(how_btn.ismousein(start_window)){
+                        how_btn.setScale({0.9,0.9});
                     }
                     break;
                 case Event::MouseButtonReleased:
@@ -718,6 +726,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
             }
         start_window.draw(background);
         start_btn.drawTo(start_window);
+        how_btn.drawTo(start_window);
         Easy_btn.drawTo(start_window);
         Medium_btn.drawTo(start_window);
         Hard_btn.drawTo(start_window);
