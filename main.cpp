@@ -44,11 +44,11 @@ void Show_Error_Window(Font &font){
         Event event;
         while(Error_Window.pollEvent(event)){
 
-            if(event.type == sf::Event::MouseButtonPressed){
+            if(event.type == sf::Event::MouseButtonPressed&&(event.mouseButton.button==Mouse::Left)){
                 if(Ok_btn.ismousein(Error_Window)){
                     Ok_btn.setScale({0.9, 0.9});
                 }
-            }else if(event.type == sf::Event::MouseButtonReleased){
+            }else if(event.type == sf::Event::MouseButtonReleased&&(event.mouseButton.button==Mouse::Left)){
                 if(Ok_btn.ismousein(Error_Window)){
                     Ok_btn.setScale({1, 1});
                     Error_Window.close();
@@ -94,7 +94,7 @@ void Change_Difficulty(int &difficulty,Font &font){
     while(window.isOpen()){
         Event event;
         while(window.pollEvent(event)){
-            if(event.type==Event::MouseButtonPressed) {
+            if(event.type==Event::MouseButtonPressed&&(event.mouseButton.button==Mouse::Left)) {
                 cout << Mouse::getPosition(window).x << " " << Mouse::getPosition(window).y << endl;
                 if(easy.ismousein(window)){
                     easy.setScale({0.9,0.9});
@@ -106,7 +106,7 @@ void Change_Difficulty(int &difficulty,Font &font){
                     hard.setScale({0.9,0.9});
                 }
             }
-            else if(event.type==Event::MouseButtonReleased){
+            else if(event.type==Event::MouseButtonReleased&&(event.mouseButton.button==Mouse::Left)){
                 if(easy.ismousein(window)){
                     easy.setScale({1,1});
                     difficulty=1;
@@ -177,7 +177,7 @@ bool Game_End(bool playerwin,Font &font,int &difficulty,int compGrid[6][6],int c
         Event event;
 
         while(window.pollEvent(event)){
-            if(event.type==Event::MouseButtonPressed){
+            if(event.type==Event::MouseButtonPressed&&(event.mouseButton.button==Mouse::Left)){
                 if(exit.ismousein(window)){
                     exit.setScale({0.9,0.9});
                 }
@@ -188,7 +188,7 @@ bool Game_End(bool playerwin,Font &font,int &difficulty,int compGrid[6][6],int c
                     show_com_grid.setScale({0.9,0.9});
                 }
             }
-            if(event.type==Event::MouseButtonReleased){
+            if(event.type==Event::MouseButtonReleased&&(event.mouseButton.button==Mouse::Left)){
                 cout<<Mouse::getPosition(window).x<<" "<<Mouse::getPosition(window).y<<endl;
                 if(exit.ismousein(window)){
                     exit.setScale({1,1});
@@ -235,12 +235,10 @@ bool Game_End(bool playerwin,Font &font,int &difficulty,int compGrid[6][6],int c
                     grid.setSize({514,506});
                     grid.setTexture(&grid_tex);
                     while(compGrid_window.isOpen()){
-                        Event event;
-                        while(compGrid_window.pollEvent(event)){
-                            if(event.type==Event::Closed)
+                        Event compGrid_event;
+                        while(compGrid_window.pollEvent(compGrid_event)){
+                            if(compGrid_event.type==Event::Closed&&(compGrid_event.mouseButton.button==Mouse::Left))
                                 compGrid_window.close();
-                            else if(event.type==Event::MouseButtonPressed)
-                                cout<<Mouse::getPosition(compGrid_window).x<<" "<<Mouse::getPosition(compGrid_window).y<<endl;
                         }
                         compGrid_window.draw(grid);
                         for(int i=0;i<5;i++)
@@ -338,9 +336,9 @@ bool GameWindow(string &player_name,int &difficulty,Font &font,bool &playerwin,i
 
         while(GameWindow.pollEvent(event)){
 
-            if(event.type == Event::Closed) {
+            if(event.type == Event::Closed&&(event.mouseButton.button==Mouse::Left)) {
                 GameWindow.close();
-            }else if(event.type == sf::Event::MouseButtonPressed){
+            }else if(event.type == sf::Event::MouseButtonPressed&&(event.mouseButton.button==Mouse::Left)){
                // sf::Vector2i localPosition = sf::Mouse::getPosition(GameWindow);//for testing
                // cout << localPosition.x << " " << localPosition.y << endl;//for testing
                 for(int i = 0; i < 5; ++i){
@@ -533,7 +531,6 @@ bool GameWindow(string &player_name,int &difficulty,Font &font,bool &playerwin,i
     return 0;
 }
 
-
 string nameEnter(Font &font,string player_name){//A function to take the user enter his/her name as an input
     /*--------text box data elements---------*/
     RenderWindow txtbox(VideoMode(400,100),"Enter the Name",Style::None);
@@ -567,7 +564,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
         while(txtbox.pollEvent(e))
             if(e.type==Event::TextEntered)
                 name.typedOn(e);
-            else if(e.type==Event::MouseButtonPressed)
+            else if(e.type==Event::MouseButtonPressed&&(e.mouseButton.button==Mouse::Left))
             {
                 //  cout<<Mouse::getPosition(txtbox).x<<" "<<Mouse::getPosition(txtbox).y<<endl;
                 if(ok.ismousein(txtbox)){
@@ -577,7 +574,7 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
                     cancel.setScale({0.9, 0.9});
                 }
             }
-            else if (e.type==Event::MouseButtonReleased){
+            else if (e.type==Event::MouseButtonReleased&&(e.mouseButton.button==Mouse::Left)){
                 if(ok.ismousein(txtbox)){
                     ok.setScale({1, 1});
                     txtbox.close();
@@ -665,36 +662,40 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
         while(start_window.pollEvent(ev))
             switch (ev.type) {//even handle switch case
                 case Event::Closed:
-                    start_window.close();return 0 ;break;
+                    if(ev.mouseButton.button==Mouse::Left) {
+                        start_window.close();
+                        return 0;
+                        break;
+                    }
                 case Event::MouseButtonPressed://to know the positions on the screen
-                      cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
-                    if(start_btn.ismousein(start_window))
+                      //cout<<Mouse::getPosition(start_window).x<<" "<<Mouse::getPosition(start_window).y<<endl;
+                    if(start_btn.ismousein(start_window) &&(ev.mouseButton.button==Mouse::Left))
                         start_btn.setScale({0.9,0.9});
 
-                    else if(Easy_btn.ismousein(start_window)) {
+                    else if(Easy_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)) {
                         if (!Changed_Hard_btn && !Changed_Medium_btn)
                             Easy_btn.setScale({0.9, 0.9});
                     }
-                    else if(Medium_btn.ismousein(start_window)) {
+                    else if(Medium_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)) {
                         if(!Changed_Easy_byn && !Changed_Hard_btn)
                             Medium_btn.setScale({0.9, 0.9});
                     }
-                    else if(Hard_btn.ismousein(start_window)){
+                    else if(Hard_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)){
                         if(!Changed_Easy_byn && !Changed_Medium_btn)
                             Hard_btn.setScale({0.9, 0.9});
                     }
-                    else if(how_btn.ismousein(start_window)){
+                    else if(how_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)){
                         how_btn.setScale({0.9,0.9});
                     }
                     break;
                 case Event::MouseButtonReleased:
-                    if(start_btn.ismousein(start_window)) {
+                    if(start_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)) {
                         start_btn.setScale({1, 1});
                         if(Changed_Easy_byn||Changed_Hard_btn||Changed_Medium_btn)
                             isstart=true;
                         else
                             error =true;}
-                    else if(Easy_btn.ismousein(start_window)) {
+                    else if(Easy_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)) {
                         if(!Changed_Easy_byn && !Changed_Medium_btn && !Changed_Hard_btn) {
                             Easy_btn.setScale({1, 1});
                             Easy_btn_Texture.loadFromFile("easy_btn_p.png");
@@ -704,7 +705,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
                             Easy_btn_Texture.loadFromFile("easy_btn_np.png");
                             Changed_Easy_byn = false;
                         }
-                    }else if(Medium_btn.ismousein(start_window)){
+                    }else if(Medium_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)){
                         if(!Changed_Medium_btn && !Changed_Hard_btn && !Changed_Easy_byn){
                             Medium_btn.setScale({1, 1});
 
@@ -715,7 +716,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
                             Medium_btn_Texture.loadFromFile("meduim_btn_np.png");
                             Changed_Medium_btn = false;
                         }
-                    }else if(Hard_btn.ismousein(start_window)){
+                    }else if(Hard_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)){
                         if(!Changed_Hard_btn && !Changed_Medium_btn && !Changed_Easy_byn){
                             Hard_btn.setScale({1, 1});
                             Hard_btn_Texture.loadFromFile("hard_btn_p.png");
@@ -726,7 +727,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
                             Changed_Hard_btn = false;
                         }
                     }
-                    else if(how_btn.ismousein(start_window)){
+                    else if(how_btn.ismousein(start_window)&&(ev.mouseButton.button==Mouse::Left)){
                         how_btn.setScale({1,1});
                         RenderWindow how_window;
                         how_window.create(VideoMode(700,700),"How to Play ",Style::Close);
@@ -740,7 +741,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
                         while (how_window.isOpen()){
                             Event event;
                             while(how_window.pollEvent(event)){
-                                if(event.type==Event::Closed){
+                                if(event.type==Event::Closed&&(event.mouseButton.button==Mouse::Left)){
                                     how_window.close();
                                 }
                             }
