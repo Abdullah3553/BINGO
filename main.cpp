@@ -332,6 +332,10 @@ bool GameWindow(string &player_name,int &difficulty,Font &font,bool &playerwin,i
 
     while(GameWindow.isOpen()){// the game window main loop
         Event event;
+
+        if(playerWins) { playerwin = 1;return 1; }
+        else if(compWins) { playerwin = 0; return 1;}
+
         while(GameWindow.pollEvent(event)){
 
             if(event.type == Event::Closed) {
@@ -720,6 +724,28 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){
                             Hard_btn.setScale({1, 1});
                             Hard_btn_Texture.loadFromFile("hard_btn_np.png");
                             Changed_Hard_btn = false;
+                        }
+                    }
+                    else if(how_btn.ismousein(start_window)){
+                        how_btn.setScale({1,1});
+                        RenderWindow how_window;
+                        how_window.create(VideoMode(700,700),"How to Play ",Style::Close);
+                        how_window.setPosition({0,0});
+                        RectangleShape backg;
+                        Texture backg_tex;
+                        backg_tex.loadFromFile("help_txt.jpg");
+                        backg.setTexture(&backg_tex);
+                        backg.setSize(Vector2f(700,700));
+
+                        while (how_window.isOpen()){
+                            Event event;
+                            while(how_window.pollEvent(event)){
+                                if(event.type==Event::Closed){
+                                    how_window.close();
+                                }
+                            }
+                            how_window.draw(backg);
+                            how_window.display();
                         }
                     }
                     break;
