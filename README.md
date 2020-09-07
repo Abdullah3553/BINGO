@@ -20,12 +20,16 @@ The second level is Meduim. This one is a little bit smarter. On each computer t
 
 The third and the last level is Hard. This level is a little bit tricky. The computer will play with same strategy we described in the Meduim level. But, the computer will try to optimize the result. Insteade of picking the a random number from the row or the column, it will check for all numbers in that row or column and pick the best number on that  row that intersects with the other columns.
 For example, let's consider the following situation on the computer grid : ( x means the number is selecetd and o means that it's not selected) 
+
+
    1  2  3  4  5 
  1 o  o  o  o  x
  2 o  o  o  o  o
  3 x  x  o  x  o
  4 o  x  x  o  o
  5 o  o  o  o  x
+ 
+ 
  after applying the strategy of the Meduim level, the computer should select row number 3 as the best play. But with that addition in the *Hard* level. The best point to be selecetd in row number 3 is point number 5. Because, it will intersect with another column ( in this case column number 5 ) and the computer will be able to play on that column latter . 
 That absolotly optimaizes the way that the algorithm works. Ofcourse it depends also on luck with some percentage, but this strategy is much better than the Meduim one and it gives a better results. 
 
