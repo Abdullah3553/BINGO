@@ -1,16 +1,16 @@
-# Welcome to BINGO :D 
+# WELCOME TO BINGO :D 
 BINGO is a singleplayer game that depends on both luck and logical thinking and stratigical thinking. 
 The game is quite simple. There are 3 different levels of difficulties. Each level of them depends on an algorithm and luck.
 We will go over all of it.
 
-# What is BINGO ? 
+# WHAT IS BINGO ? 
 Bingo is a game which both the player and the computwer has a 5x5 grid filld with random ordered numbers from 1 to 25.
 The player has unique sequance of numbers and it's different of the sequance that the computer has on its grid.
 Simply, the player will choose a number from his grid and will mark that number as selected in both the player grid and the computer grid. 
 Whenever the player complete a whole row or column with all numbers in that row or column marked as selected, the player will win a point. 
 If the player reaches 5 point, then the player wins. The same process will haapen with the computer on its grid. 
 
-# Luck vs strategies
+# LUCK vs STRATEGIES
 The computer play with a specific strategy for each difficulty level. The difficulty does not only depends on the strategy that the computer is playing with, it also depeneds somehow on luck! Because, both grids( the player grid and the computer grid ) are filled with a *random* different sequance of numbers. So, if you are lucky, you will find some numbers of your grid that has been choosen by the computer (on his grid) will intersect with a row or a column that you are already tring the mark it all. So, this will help you the mark your row or column faster and that will give you an advantage. Later on, maybe you will reach 5 points before the computer. Don't forget the same process could happen when you choose your number. 
 
 # HOW DOES IT WORK ? 
@@ -28,7 +28,7 @@ That absolotly optimaizes the way that the algorithm works. Ofcourse it depends 
 
 # HOW DOES WE BUILD ALL OF THAT ?
 SFML :) 
-everythins in this game has been written in C++. We used the famous *Simple and Fast Multimedia Library* ( SFML ). 
+everything in this game has been written in C++. We used the famous *Simple and Fast Multimedia Library* ( SFML ). 
 
 # WHY SFML ? 
 Because it's fast and simple. Also, it works with C++ and almost all members in our team know how to program with C++ very well. 
