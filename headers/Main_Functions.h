@@ -29,7 +29,7 @@ void Show_Error_Window(Font &font){//error msg window
 
     //-------- Texture --------//
     Texture Ok_btn_Texture;
-    Ok_btn_Texture.loadFromFile("Ok_btn.png");
+    Ok_btn_Texture.loadFromFile("start_window/Ok_btn.png");
     Ok_btn_Texture.setSmooth(true);
     //------- EndOfTexture-------//
 
@@ -519,8 +519,8 @@ string nameEnter(Font &font,string player_name){//A function to take the user en
     //-------Texture area---------//
     ok_tex.setSmooth(true);
     cancel_tex.setSmooth(true);
-    ok_tex.loadFromFile("Ok_btn.png");
-    cancel_tex.loadFromFile("cancel_btn.png");
+    ok_tex.loadFromFile("start_window/Ok_btn.png");
+    cancel_tex.loadFromFile("start_window/cancel_btn.png");
     //-------Texture area---------//
 
     Button ok(&ok_tex),cancel(&cancel_tex);
@@ -587,9 +587,9 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){//sta
 
     /*--------Texture area------*/
     Texture background_texture,start_btn_texture,how_btn_tex;
-    background_texture.loadFromFile("background.jpg");
-    start_btn_texture.loadFromFile("start_btn.png");
-    how_btn_tex.loadFromFile("how_to_play_btn.png");
+    background_texture.loadFromFile("start_window/background.jpg");
+    start_btn_texture.loadFromFile("start_window/start_btn.png");
+    how_btn_tex.loadFromFile("start_window/how_to_play_btn.png");
     /*--------Texture area------*/
 
     /*--------Data area------*/
@@ -608,7 +608,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){//sta
 
     //----------- Easy_btn section ------------//
     Texture Easy_btn_Texture;
-    Easy_btn_Texture.loadFromFile("easy_btn_np.png");
+    Easy_btn_Texture.loadFromFile("start_window/easy_btn_np.png");
     Button Easy_btn(&Easy_btn_Texture);
     Easy_btn.setPosition({31, 365});
     bool Changed_Easy_btn = false;
@@ -616,7 +616,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){//sta
 
     // ---------- Medium_btn section ------------//
     Texture Medium_btn_Texture;
-    Medium_btn_Texture.loadFromFile("meduim_btn_np.png");
+    Medium_btn_Texture.loadFromFile("start_window/meduim_btn_np.png");
     Button Medium_btn(&Medium_btn_Texture);
     Medium_btn.setPosition({30, 480});
     bool Changed_Medium_btn = false;
@@ -624,7 +624,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){//sta
 
     //---------- Hard_brn section ----------------//
     Texture Hard_btn_Texture;
-    Hard_btn_Texture.loadFromFile("hard_btn_np.png");
+    Hard_btn_Texture.loadFromFile("start_window/hard_btn_np.png");
     Button Hard_btn (&Hard_btn_Texture);
     Hard_btn.setPosition({30, 590});
     bool Changed_Hard_btn = false;
@@ -682,32 +682,32 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){//sta
                     else if(Easy_btn.ismousein(start_window)&&(startW_event.mouseButton.button==Mouse::Left)) {
                         if(!Changed_Easy_btn && !Changed_Medium_btn && !Changed_Hard_btn) {
                             Easy_btn.setScale({1, 1});
-                            Easy_btn_Texture.loadFromFile("easy_btn_p.png");
+                            Easy_btn_Texture.loadFromFile("start_window/easy_btn_p.png");
                             Changed_Easy_btn = true;
                         }else{
                             Easy_btn.setScale({1, 1});
-                            Easy_btn_Texture.loadFromFile("easy_btn_np.png");
+                            Easy_btn_Texture.loadFromFile("start_window/easy_btn_np.png");
                             Changed_Easy_btn = false;
                         }
                     }else if(Medium_btn.ismousein(start_window)&&(startW_event.mouseButton.button==Mouse::Left)){
                         if(!Changed_Medium_btn && !Changed_Hard_btn && !Changed_Easy_btn){
                             Medium_btn.setScale({1, 1});
 
-                            Medium_btn_Texture.loadFromFile("meduim_btn_p.png");
+                            Medium_btn_Texture.loadFromFile("start_window/meduim_btn_p.png");
                             Changed_Medium_btn = true;
                         } else{
                             Medium_btn.setScale({1, 1});
-                            Medium_btn_Texture.loadFromFile("meduim_btn_np.png");
+                            Medium_btn_Texture.loadFromFile("start_window/meduim_btn_np.png");
                             Changed_Medium_btn = false;
                         }
                     }else if(Hard_btn.ismousein(start_window)&&(startW_event.mouseButton.button==Mouse::Left)){
                         if(!Changed_Hard_btn && !Changed_Medium_btn && !Changed_Easy_btn){
                             Hard_btn.setScale({1, 1});
-                            Hard_btn_Texture.loadFromFile("hard_btn_p.png");
+                            Hard_btn_Texture.loadFromFile("start_window/hard_btn_p.png");
                             Changed_Hard_btn = true;
                         }else{
                             Hard_btn.setScale({1, 1});
-                            Hard_btn_Texture.loadFromFile("hard_btn_np.png");
+                            Hard_btn_Texture.loadFromFile("start_window/hard_btn_np.png");
                             Changed_Hard_btn = false;
                         }
                     }
@@ -724,7 +724,7 @@ bool start_window_function(string &player_name,int &difficulty,Font &font){//sta
                         /*-----settings area-----*/
                         how_window.create(VideoMode(700,700),"How to Play ",Style::Close);
                         how_window.setPosition({0,0});
-                        backg_tex.loadFromFile("help_txt.jpg");
+                        backg_tex.loadFromFile("start_window/help_txt.jpg");
                         backg.setTexture(&backg_tex);
                         backg.setSize(Vector2f(700,700));
                         /*-----settings area-----*/

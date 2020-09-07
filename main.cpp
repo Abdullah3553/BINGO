@@ -1,5 +1,5 @@
 /*---------BINGO---------*/
-#include "Main_Functions.h"
+#include "headers/Main_Functions.h"
 
 
 int main(){
@@ -11,7 +11,7 @@ int main(){
     int compGrid[6][6]={},compGridCopy[6][6]={};
     //------------Global Data-----------//
 
-    font.loadFromFile("ARLRDBD.TTF");
+    font.loadFromFile("font/ARLRDBD.TTF");
     if(start_window_function(player_name,difficulty,font)){
 
         if(GameWindow(player_name,difficulty,font,playerwin,compGrid,compGridCopy))
