@@ -36,6 +36,7 @@ Because it's fast and simple. Also, it works with C++ and almost all members in 
 # I WANT TO PLAY TOO :3 !
 Do you want to try the game yourself ? No problem :) 
 The game is already availabe. All you have to do is :
+(SFML Should be installed already and connected with codeBlocks the right way) 
 - Download the repository as a ZIP archive.  
 - Unzip the archive.
 - Open the project.cbp file using CodeBlocks.
