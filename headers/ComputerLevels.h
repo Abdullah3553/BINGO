@@ -13,18 +13,6 @@ int  getRand(vector<int> v){
     return v2.back();
 }
 
-pair <int, int> PlayEasy(int g[6][6]){
-    vector <pair<int, int>> v;
-    int indx;
-    for (int i=0; i<5; i++){
-        for (int j=0; j<5; j++){
-            if (g[i][j]) v.push_back(make_pair(i, j));
-        }
-    }
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
-    shuffle(v.begin(), v.end(), default_random_engine(seed));
-    return v.back();
-}
 
 pair<int,int> PlayMedium(int g[6][6]){
     set<pair<int,int>> s ;
@@ -106,6 +94,19 @@ pair<int,int> PlayHard(int g[6][6]){
 
     int bestRandomEver= getRand(ids);
     return points[bestRandomEver];
+}
+
+pair <int, int> PlayEasy(int g[6][6]){
+    vector <pair<int, int>> v;
+    int indx;
+    for (int i=0; i<5; i++){
+        for (int j=0; j<5; j++){
+            if (g[i][j]) v.push_back(make_pair(i, j));
+        }
+    }
+    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count();
+    shuffle(v.begin(), v.end(), default_random_engine(seed));
+    return v.back();
 }
 
 void filltheGrid(int g[6][6]) {
